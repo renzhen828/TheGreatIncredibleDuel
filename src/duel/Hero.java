@@ -30,7 +30,8 @@ public abstract class Hero
     public int attack(Hero enemy)
     {
 
-        int shanghai = (int) 50 * gj / enemy.fy;
+        int ran = (int)Math.random()*20;
+        int shanghai = (int) 50 * gj / enemy.fy + ran;
 
         return shanghai;
 
