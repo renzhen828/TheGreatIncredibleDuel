@@ -1,16 +1,19 @@
 package duel;
 
+import java.util.ArrayList;
+
 public class CreateHero
 {
     public int chaju = 30;
     public int zhiye, k;
     public Hero p1, p2;
     int gj = 63, fy = 63, xl = 223; // for语句里这句有问题吧
-    
-    
+    int roundNum = 0;
+    public ArrayList<Round> roundList;
     
     public CreateHero()
     {
+        roundList = new ArrayList<Round>();
         String input = "";
         U.dayin("输入你能接受的差距：");
         input = U.duqu();
@@ -99,12 +102,9 @@ public class CreateHero
     {
         while (p1.xl > 0 && p2.xl > 0)
         {
-            showXl(p1);
-            showXl(p2);
-            waitSeconds(Const.iterval*2);
-
+            U.showXl(p1);
+            U.showXl(p2);
             huihe(p1, p2);
-
             huihe(p2, p1);
         }
 
@@ -119,52 +119,20 @@ public class CreateHero
     {
         if (attacker.xl > 0)
         {
-            waitSeconds(Const.iterval);
+            Round round = new Round(attacker,enemy,roundNum);
+            roundList.add(round);
 
-            int shanghai = attacker.attack(enemy);
-            enemy.xl = enemy.xl - shanghai;
-            showShangHai(enemy, shanghai);
             if (enemy.xl <= 0)
             {
-                waitSeconds(Const.iterval);
-                showDeath(enemy);
-                waitSeconds(Const.iterval);
-                showWin(attacker);
+                
+                U.showDeath(enemy);
+                U.showWin(attacker);
             }
         }
 
     }
 
-    private void waitSeconds(double s)
-    {
-        try
-        {
-            Thread.sleep((long)(1000 * s));
-        } catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
-    }
 
-    private void showWin(Hero attacker)
-    {
-        U.dayin(attacker.name + "终于获得了胜利！");
-    }
-
-    private void showDeath(Hero enemy)
-    {
-        U.dayin(enemy.name + "已经爬不起来了.");
-    }
-
-    private void showShangHai(Hero enemy, int shanghai)
-    {
-        U.dayin(enemy.name + "受到了" + shanghai + "点伤害。");
-    }
-
-    private void showXl(Hero p)
-    {
-        U.dayin("****" + p.name + "-HP:" + p.xl + "****");
-    }
 
     public static void main(String[] args)
     {

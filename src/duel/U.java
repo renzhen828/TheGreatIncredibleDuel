@@ -44,4 +44,42 @@ public class U
         int i = Integer.parseInt(str);
         return i;
     }
+    
+    
+    public static void showDeath(Hero enemy)
+    {
+        waitSeconds(Const.iterval);
+        U.dayin(enemy.name + "已经爬不起来了.");
+    }
+
+    public static void showShangHai(Hero enemy, int shanghai)
+    {
+        waitSeconds(Const.iterval);
+        U.dayin(enemy.name + "受到了" + shanghai + "点伤害。");
+    }
+
+    public static void showXl(Hero p)
+    {
+        waitSeconds(Const.iterval/2);
+        U.dayin("****" + p.name + "-HP:" + p.xl + "****");
+    }
+    
+
+    public static void waitSeconds(double s)
+    {
+        try
+        {
+            Thread.sleep((long)(1000 * s));
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showWin(Hero attacker)
+    {
+        waitSeconds(Const.iterval);
+        U.dayin(attacker.name + "终于获得了胜利！");
+    }
+
 }
