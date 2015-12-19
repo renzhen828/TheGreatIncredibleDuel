@@ -1,9 +1,0 @@
-*.class
-<<<<<<< HEAD
-/bin/
-
-*.project
-*.classpath
-=======
-*.project
->>>>>>> rz/master
