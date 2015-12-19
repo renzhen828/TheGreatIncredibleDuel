@@ -5,6 +5,7 @@ public class Round
     Hero attacker, target;
     int num;
 
+
     public Round(Hero p1, Hero p2, int lastNum)
     {
         attacker = p1;
@@ -15,7 +16,7 @@ public class Round
         roundEnd();
     }
 
-    private void roundEnd()
+    private void roundStart()
     {
         for (Buff buff : attacker.buffList)
         {
@@ -42,7 +43,7 @@ public class Round
         }
     }
 
-    private void roundStart()
+    private void roundEnd()
     {
         for (Buff buff : attacker.buffList)
         {
@@ -53,6 +54,7 @@ public class Round
             buff.roundEndDo();
         }
     }
+    
 
     public int getNum()
     {
