@@ -3,17 +3,19 @@ package duel;
 public class Round
 {
     Hero attacker, target;
+    CreateHero ch;
     int num;
 
-
-    public Round(Hero p1, Hero p2, int lastNum)
+    public Round(Hero atc, Hero tgt, CreateHero ch1)
     {
-        attacker = p1;
-        target = p2;
-        num = lastNum;
+        attacker = atc;
+        target = tgt;
+        ch = ch1;
+        num = ch.roundNum + 1;
         roundStart();
         roundExecute();
         roundEnd();
+        
     }
 
     private void roundStart()
@@ -30,9 +32,9 @@ public class Round
 
     private void roundExecute()
     {
-        int shanghai = attacker.attack(target);
-        target.xl = target.xl - shanghai;
-        U.showShangHai(target, shanghai);
+
+        skillPerform(attacker, target);
+        
         for (Buff buff : attacker.buffList)
         {
             buff.roundExecuteDo();
@@ -41,6 +43,9 @@ public class Round
         {
             buff.roundExecuteDo();
         }
+        
+        target.xl = target.xl - ch.shanghai;
+        U.showShangHai(target, ch.shanghai);
     }
 
     private void roundEnd()
@@ -53,8 +58,9 @@ public class Round
         {
             buff.roundEndDo();
         }
+        U.deleteBuffByNum(attacker);
+        U.deleteBuffByNum(target);
     }
-    
 
     public int getNum()
     {
@@ -64,5 +70,24 @@ public class Round
     public void setNum(int num)
     {
         this.num = num;
+    }
+
+    public void skillPerform(Hero caster, Hero target)
+    {
+        Skill csk = null;
+        while (null == csk)
+        {
+            U.showSkillList(caster);
+            String mark = U.duqu();
+            for (Skill skill : caster.skillList)
+            {
+                if (mark.equals(skill.mark))
+                {
+                    csk = skill;
+                    break;
+                }
+            }
+        }
+        csk.perform();
     }
 }

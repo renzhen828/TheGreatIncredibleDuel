@@ -2,9 +2,15 @@ package duel;
 
 public abstract class Buff
 {
-    public abstract void buffOn(Hero target, Hero sender, CreateHero ch);
+    public String name = "";
+    public String type = ""; // js: ºı…À 
+    public int roundNum;
+    public Hero target, sender;
+    public CreateHero ch;
+    
+    public abstract void buffOn();
 
-    public abstract void buffOff(Hero target, Hero sender, CreateHero ch);
+    public abstract void buffOff();
 
     public abstract void roundStartDo();
 

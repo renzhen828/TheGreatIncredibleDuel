@@ -10,6 +10,8 @@ public class CreateHero
     int gj = 63, fy = 63, xl = 223; // for语句里这句有问题吧
     int roundNum = 0;
     public ArrayList<Round> roundList;
+    public int shanghai=0;
+    public Hero attacker = p1, target = p2;
     
     public CreateHero()
     {
@@ -60,6 +62,9 @@ public class CreateHero
         p2.gj = gj;
         p2.fy = fy;
         p2.xl = xl;
+        
+        p1.initSkill(p2, this);
+        p2.initSkill(p1, this);
     }
 
     private int startSuiJi(int c_gj, int c_fy, int c_xl)
@@ -104,7 +109,15 @@ public class CreateHero
         {
             U.showXl(p1);
             U.showXl(p2);
+            attacker = p1;
+            target = p2;
+            shanghai = 0;
             huihe(p1, p2);
+            U.showXl(p1);
+            U.showXl(p2);
+            attacker = p2;
+            target = p1;
+            shanghai = 0;
             huihe(p2, p1);
         }
 
@@ -119,19 +132,16 @@ public class CreateHero
     {
         if (attacker.xl > 0)
         {
-            Round round = new Round(attacker,enemy,roundNum);
+            Round round = new Round(attacker,enemy,this);
             roundList.add(round);
-
             if (enemy.xl <= 0)
             {
-                
                 U.showDeath(enemy);
                 U.showWin(attacker);
             }
         }
 
     }
-
 
 
     public static void main(String[] args)

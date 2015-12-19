@@ -11,6 +11,7 @@ public abstract class Hero
     public String name = "p1";
     
     public ArrayList<Buff> buffList = new ArrayList<Buff>();
+    public ArrayList<Skill> skillList = new ArrayList<Skill>();
     public int qili;
     // public abstract void sk1();
     // public abstract void sk2();
@@ -30,16 +31,9 @@ public abstract class Hero
 
     public Hero()
     {
+        
     }
 
-    public int attack(Hero enemy)
-    {
-
-        int ran = RandomIntList.getInstance().getNext()/5;
-        int shanghai = (int) 50 * gj / enemy.fy + ran;
-
-        return shanghai;
-
-    }
+    public abstract void initSkill(Hero p, CreateHero c);
     
 }
