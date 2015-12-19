@@ -1,5 +1,7 @@
 package duel;
 
+import java.util.ArrayList;
+
 public abstract class Hero
 {
     public int gj = 63, fy = 63, xl = 223, zhiye = 0; // ¹¥»÷ ·ÀÓù ÑªÁ¿
@@ -7,6 +9,9 @@ public abstract class Hero
     public int type = 0;// 1 zhanshi, 2 fashi
 
     public String name = "p1";
+    
+    public ArrayList<Buff> buffList;
+    public int qili;
     // public abstract void sk1();
     // public abstract void sk2();
     // public abstract void sk3();
