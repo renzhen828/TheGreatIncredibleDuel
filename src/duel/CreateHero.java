@@ -63,27 +63,25 @@ public class CreateHero
     {
         int sj = 0;
         int total = 0;
+        RandomIntList randomList = RandomIntList.getInstance();
         do
         {
 
             for (int i = 1; i <= 6; i++)
             {
-                double sui2ji1 = Math.random() * 10;
-                sj = sj + (int) sui2ji1;
+                sj = sj + randomList.getNext()/10;
             }
             gj = c_gj + sj;
             sj = 0;
             for (int i = 1; i <= 6; i++)
             {
-                double sui2ji1 = Math.random() * 10;
-                sj = sj + (int) sui2ji1;
+                sj = sj + randomList.getNext()/10;
             }
             fy = c_fy + sj;
             sj = 0;
             for (int i = 1; i <= 6; i++)
             {
-                double sui2ji1 = Math.random() * 20;
-                sj = sj + (int) sui2ji1;
+                sj = sj + randomList.getNext()/5;
             }
             xl = c_xl + sj;
             total = gj + fy + (int) xl * 9 / 28;
