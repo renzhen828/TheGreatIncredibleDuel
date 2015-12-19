@@ -10,7 +10,7 @@ public abstract class Hero
 
     public String name = "p1";
     
-    public ArrayList<Buff> buffList;
+    public ArrayList<Buff> buffList = new ArrayList<Buff>();
     public int qili;
     // public abstract void sk1();
     // public abstract void sk2();
