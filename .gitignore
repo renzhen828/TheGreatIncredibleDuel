@@ -1,1 +1,5 @@
 *.class
+/bin/
+
+*.project
+*.classpath
