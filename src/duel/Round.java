@@ -5,6 +5,7 @@ public class Round
     Hero attacker, target;
     CreateHero ch;
     int num;
+    Skill csk = null;
 
     public Round(Hero atc, Hero tgt, CreateHero ch1)
     {
@@ -15,7 +16,7 @@ public class Round
         roundStart();
         roundExecute();
         roundEnd();
-        
+
     }
 
     private void roundStart()
@@ -32,9 +33,8 @@ public class Round
 
     private void roundExecute()
     {
-
+        createSkill(attacker);
         skillPerform(attacker, target);
-        
         for (Buff buff : attacker.buffList)
         {
             buff.roundExecuteDo();
@@ -43,7 +43,6 @@ public class Round
         {
             buff.roundExecuteDo();
         }
-        
         target.xl = target.xl - ch.shanghai;
         U.showShangHai(target, ch.shanghai);
     }
@@ -60,6 +59,7 @@ public class Round
         }
         U.deleteBuffByNum(attacker);
         U.deleteBuffByNum(target);
+        handleSkill(attacker);
     }
 
     public int getNum()
@@ -72,22 +72,73 @@ public class Round
         this.num = num;
     }
 
-    public void skillPerform(Hero caster, Hero target)
+    private void createSkill(Hero attacker)
     {
-        Skill csk = null;
+        int totality = 0, skillNum = 4;
+        for (Skill skill : attacker.skillList)
+            if (1 == skill.area)
+            {
+                skillNum--;
+            } else if (0 == skill.area)
+            {
+                totality = totality + skill.cishu + 1;
+            }
+        for (int i = 1; i <= skillNum; i++)
+        {
+            RandomIntList randomList = RandomIntList.getInstance();
+            int ranNum = randomList.getNext() % totality+1;
+            int k = 0;
+            for (Skill skill : attacker.skillList)
+            {
+                if (0 == skill.area)
+                {
+                    k++;
+                    int p = k;
+                    k = k + skill.cishu;
+                    if ((p <= ranNum) && (k >= ranNum))
+                    {
+                        skill.area = 1;
+                        totality = totality - skill.cishu - 1;
+                    }
+                }
+            }
+        }
+    }
+
+    private void skillPerform(Hero caster, Hero target)
+    {
+        csk = null;
         while (null == csk)
         {
             U.showSkillList(caster);
             String mark = U.duqu();
             for (Skill skill : caster.skillList)
             {
-                if (mark.equals(skill.mark))
+                if ((mark.equals(skill.mark)) && (skill.area == 1))
                 {
                     csk = skill;
+                    csk.cishu++;
                     break;
                 }
             }
         }
         csk.perform();
+    }
+
+    private void handleSkill(Hero attacker)
+    {
+        for (Skill skill : attacker.skillList)
+            if (skill.area == -1)
+            {
+                skill.area = 0;
+            } else if (skill.area == 1)
+            {
+                skill.hold++;
+                if ((skill.hold == 2) || (skill.mark.equals(csk.mark)))
+                {
+                    skill.area = -1;
+                    skill.hold = 0;
+                }
+            }
     }
 }

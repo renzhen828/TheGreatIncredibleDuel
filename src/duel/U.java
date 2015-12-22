@@ -51,19 +51,19 @@ public class U
 
     public static void showDeath(Hero enemy)
     {
-        waitSeconds(Const.iterval);
+        waitSeconds(Const.INTERVEL);
         U.dayin(enemy.name + "已经爬不起来了.");
     }
 
     public static void showShangHai(Hero enemy, int shanghai)
     {
-        waitSeconds(Const.iterval);
+        waitSeconds(Const.INTERVEL);
         U.dayin(enemy.name + "受到了" + shanghai + "点伤害。");
     }
 
     public static void showXl(Hero p)
     {
-        waitSeconds(Const.iterval / 2);
+        waitSeconds(Const.INTERVEL / 2);
         U.dayin("****" + p.name + "-HP:" + p.xl + "****");
     }
 
@@ -80,7 +80,7 @@ public class U
 
     public static void showWin(Hero attacker)
     {
-        waitSeconds(Const.iterval);
+        waitSeconds(Const.INTERVEL);
         U.dayin(attacker.name + "终于获得了胜利！");
     }
 
@@ -89,41 +89,51 @@ public class U
         String list = "";
         for (Skill skill : caster.skillList)
         {
-            list = list + skill.describe() + "\t";
+            if (skill.area == 1)
+                list = list + skill.describe() + "\t";
         }
-        dayin(caster.name+"请选择技能：");
+        dayin(caster.name + "请选择技能：");
         dayin(list);
     }
-    
-    public static void deleteBuffByType(Hero target, String buffType){
+
+    public static void deleteBuffByType(Hero target, String buffType)
+    {
         int index = -1;
-        do{
+        do
+        {
             index = -1;
-            for (Buff buff: target.buffList){
-                if (buff.type.equals(buffType)){
+            for (Buff buff : target.buffList)
+            {
+                if (buff.type.equals(buffType))
+                {
                     index = target.buffList.indexOf(buff);
                 }
             }
-            if (index>-1){
+            if (index > -1)
+            {
                 target.buffList.remove(index);
             }
-        }while(index>-1);
+        } while (index > -1);
     }
 
-    
-    public static void deleteBuffByNum(Hero target){
+    public static void deleteBuffByNum(Hero target)
+    {
         int index = -1;
-        do{
+        do
+        {
             index = -1;
-            for (Buff buff: target.buffList){
-                if (buff.roundNum<=0){
+            for (Buff buff : target.buffList)
+            {
+                if (buff.roundNum <= 0)
+                {
                     index = target.buffList.indexOf(buff);
                 }
             }
-            if (index>-1){
+            if (index > -1)
+            {
                 target.buffList.remove(index);
             }
-        }while(index>-1);
+        } while (index > -1);
     }
-    
+
 }

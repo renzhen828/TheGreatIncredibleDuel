@@ -22,11 +22,13 @@ public class Huti extends Buff
     @Override
     public void buffOn()
     {
-        if (target.equals(ch.target)){
+        if (target.equals(ch.target))
+        {
             int hutiSH = (int) (xishu * ch.shanghai);
             int jsSH = ch.shanghai - hutiSH;
             ch.shanghai = hutiSH;
-            U.dayin(target.name + "的" + this.name + "buff发生效果，减少" + jsSH + "点伤害！");
+            U.dayin(target.name + "的" + this.name + "buff发生效果，减少" + jsSH
+                    + "点伤害！");
         }
     }
 

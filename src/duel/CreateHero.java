@@ -10,9 +10,9 @@ public class CreateHero
     int gj = 63, fy = 63, xl = 223; // for语句里这句有问题吧
     int roundNum = 0;
     public ArrayList<Round> roundList;
-    public int shanghai=0;
+    public int shanghai = 0;
     public Hero attacker = p1, target = p2;
-    
+
     public CreateHero()
     {
         roundList = new ArrayList<Round>();
@@ -62,12 +62,12 @@ public class CreateHero
         p2.gj = gj;
         p2.fy = fy;
         p2.xl = xl;
-        
+
         p1.initSkill(p2, this);
         p2.initSkill(p1, this);
     }
 
-    private int startSuiJi(int c_gj, int c_fy, int c_xl)
+    private void startSuiJi(int c_gj, int c_fy, int c_xl)
     {
         int sj = 0;
         int total = 0;
@@ -77,19 +77,19 @@ public class CreateHero
 
             for (int i = 1; i <= 6; i++)
             {
-                sj = sj + randomList.getNext()/10;
+                sj = sj + randomList.getNext() / 10;
             }
             gj = c_gj + sj;
             sj = 0;
             for (int i = 1; i <= 6; i++)
             {
-                sj = sj + randomList.getNext()/10;
+                sj = sj + randomList.getNext() / 10;
             }
             fy = c_fy + sj;
             sj = 0;
             for (int i = 1; i <= 6; i++)
             {
-                sj = sj + randomList.getNext()/5;
+                sj = sj + randomList.getNext() / 5;
             }
             xl = c_xl + sj;
             total = gj + fy + (int) xl * 9 / 28;
@@ -99,8 +99,6 @@ public class CreateHero
         U.dayin("攻击力 = " + gj);
         U.dayin("防御力 = " + fy);
         U.dayin("生命值 = " + xl);
-
-        return gj;
     }
 
     public String startFight()
@@ -132,7 +130,7 @@ public class CreateHero
     {
         if (attacker.xl > 0)
         {
-            Round round = new Round(attacker,enemy,this);
+            Round round = new Round(attacker, enemy, this);
             roundList.add(round);
             if (enemy.xl <= 0)
             {
@@ -142,7 +140,6 @@ public class CreateHero
         }
 
     }
-
 
     public static void main(String[] args)
     {
