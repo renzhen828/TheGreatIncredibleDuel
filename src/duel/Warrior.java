@@ -1,5 +1,13 @@
 package duel;
 
+import duel.skill.warriorSkill.War1;
+import duel.skill.warriorSkill.War2;
+import duel.skill.warriorSkill.War3;
+import duel.skill.warriorSkill.War4;
+import duel.skill.warriorSkill.War5;
+import duel.skill.warriorSkill.War6;
+import duel.skill.warriorSkill.War7;
+
 public class Warrior extends Hero
 {
 

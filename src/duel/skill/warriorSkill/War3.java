@@ -1,11 +1,17 @@
-package duel;
+package duel.skill.warriorSkill;
 
-public class War5 extends Skill
+import duel.CreateHero;
+import duel.Hero;
+import duel.RandomIntList;
+import duel.Skill;
+import duel.U;
+
+public class War3 extends Skill
 {
     double xishu = 1.2;
-    War5(Hero target, Hero sender, CreateHero c){
-        this.mark = "5";
-        this.name = "·è¿ñ´ò»÷";
+    public War3(Hero target, Hero sender, CreateHero c){
+        this.mark = "3";
+        this.name = "Ê¹¾¢´ò»÷";
         this.target = target;
         this.sender = sender;
         this.ch = c;

@@ -1,11 +1,16 @@
-package duel;
+package duel.skill.warriorSkill;
 
+import duel.CreateHero;
+import duel.Hero;
+import duel.RandomIntList;
+import duel.Skill;
+import duel.U;
 import duel.buff.Huti;
 
 public class War2 extends Skill
 {
     String buffType = "js";
-    War2(Hero target, Hero sender, CreateHero c){
+    public War2(Hero target, Hero sender, CreateHero c){
         this.mark = "2";
         this.name = "Υ½¶ά»¤Με";
         this.target = target;

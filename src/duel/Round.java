@@ -99,6 +99,7 @@ public class Round
                     {
                         skill.area = 1;
                         totality = totality - skill.cishu - 1;
+                        break;
                     }
                 }
             }
