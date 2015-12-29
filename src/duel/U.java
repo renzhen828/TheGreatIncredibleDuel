@@ -25,10 +25,6 @@ public class U
         {
             e.printStackTrace();
         }
-        if (str.equals("gg"))
-        {
-
-        }
         return str;
     }
 
@@ -55,16 +51,11 @@ public class U
         U.dayin(enemy.name + "已经爬不起来了.");
     }
 
-    public static void showShangHai(Hero enemy, int shanghai)
-    {
-        waitSeconds(Const.INTERVEL);
-        U.dayin(enemy.name + "受到了" + shanghai + "点伤害。");
-    }
-
     public static void showXl(Hero p)
     {
         waitSeconds(Const.INTERVEL / 2);
-        U.dayin("****" + p.name + "-HP:" + p.xl + "****");
+        U.dayin(p.name + "**生命:" + p.xl + "**能量:" + p.ql + "**攻击:" + p.gj
+                + "**防御:" + p.fy);
     }
 
     public static void waitSeconds(double s)
@@ -80,20 +71,35 @@ public class U
 
     public static void showWin(Hero attacker)
     {
-        waitSeconds(Const.INTERVEL);
-        U.dayin(attacker.name + "终于获得了胜利！");
+        waitSeconds(Const.INTERVEL * 2);
+        U.dayin(attacker.name + "获得了胜利！");
     }
 
-    public static void showSkillList(Hero caster)
+    public static Boolean showSkillList(Hero caster)
     {
         String list = "";
+        boolean cast = false;
         for (Skill skill : caster.skillList)
-        {
-            if (skill.area == 1)
-                list = list + skill.describe() + "\t";
-        }
+            if (1 == skill.area)
+            {
+                list = list + skill.describeSkill();
+                if (false == skill.cast)
+                    list = list + "X";
+                list = list + "\t";
+                cast = true;
+            }
+        for (Skill skill : caster.ultList)
+            if (1 == skill.area)
+            {
+                list = list + skill.describeUlt();
+                if (false == skill.cast)
+                    list = list + "X";
+                list = list + "\t";
+                cast = true;
+            }
         dayin(caster.name + "请选择技能：");
         dayin(list);
+        return(cast);
     }
 
     public static void deleteBuffByType(Hero target, String buffType)
@@ -103,16 +109,10 @@ public class U
         {
             index = -1;
             for (Buff buff : target.buffList)
-            {
                 if (buff.type.equals(buffType))
-                {
                     index = target.buffList.indexOf(buff);
-                }
-            }
             if (index > -1)
-            {
                 target.buffList.remove(index);
-            }
         } while (index > -1);
     }
 
@@ -123,17 +123,60 @@ public class U
         {
             index = -1;
             for (Buff buff : target.buffList)
-            {
                 if (buff.roundNum <= 0)
-                {
                     index = target.buffList.indexOf(buff);
-                }
-            }
             if (index > -1)
-            {
                 target.buffList.remove(index);
-            }
         } while (index > -1);
     }
 
+    public static double critical(Hero caster)
+    {
+        int crit = RandomIntList.getInstance().getNext() % 100 + 1;
+        double d = 1;
+        if (crit <= 15)
+            d = 1.2;
+        else if (crit <= 20)
+            d = 1.4;
+        else if (crit <= 35)
+            d = 0.7;
+        return d;
+    }
+
+    public static void showCrit(Hero caster, double d)
+    {
+        if (1.2 == d)
+            U.dayin(caster.name + "轻轻打出一击，命中对手要害");
+        else if (1.4 == d)
+            U.dayin(caster.name + "打出了致命的一击，效果拔群!");
+        else if (0.7 == d)
+            U.dayin(caster.name + "发出奋力一击，然而并没有准确命中");
+    }
+
+    public static void incCaster(Hero caster, double damage)
+    {
+        caster.ql = caster.ql + (int) (damage / 10 + 0.5);
+    }
+
+    public static void incTarget(Hero target, double damage)
+    {
+        target.ql = target.ql + (int) (damage / 20 + 0.5);
+    }
+
+    public static void over(Hero caster)
+    {
+        String ss = U.duqu();
+        ss = U.duqu();
+        ss = U.duqu();
+        ss = ss + " ";
+        waitSeconds(Const.INTERVEL);
+        U.dayin("抱歉");
+        waitSeconds(Const.INTERVEL * 6);
+        U.dayin("XXX对" + caster.name + "施放了死亡一指，造成十万点伤害。");
+        waitSeconds(Const.INTERVEL);
+        U.dayin(caster.name + "离开了人世。");
+        waitSeconds(Const.INTERVEL);
+        U.dayin("=========Game Over=========");
+        System.exit(0);
+    }
 }

@@ -1,36 +1,43 @@
 package duel.skill.warriorSkill;
 
-import duel.CreateHero;
+import duel.Const;
 import duel.Hero;
+import duel.Main;
 import duel.RandomIntList;
 import duel.Skill;
 import duel.U;
 
 public class War4 extends Skill
 {
-    double xishu = 1.2;
-    public War4(Hero target, Hero sender, CreateHero c){
-        this.mark = "4";
-        this.name = "猛烈打击";
-        this.target = target;
-        this.sender = sender;
-        this.ch = c;
-        this.cishu = 0;
-    }
- 
+    private double xishu = 1.2;
 
+    public War4(Hero caster, Hero target)
+    {
+        this.mark = "4";
+        this.name = "用力打击";
+        this.caster = caster;
+        this.target = target;
+    }
 
     @Override
     public int perform()
     {
-        int ran = RandomIntList.getInstance().getNext() / 5;
-        ch.shanghai = (int) 50 * sender.gj / target.fy + ran;
+        double d = U.critical(caster);
+        U.showCrit(caster, d);
+        int ran = RandomIntList.getInstance().getNext() / 1000;
+        Main.damage = (95 + ran) * (caster.gj + 15) / (target.fy + 15) * d;
+        caster.ultNum[1] = caster.ultNum[1] + Main.damage / 10;
+        U.incTarget(target, Main.damage);
+        double finalSH = xishu * Main.damage;
+        int extraSH = (int) (finalSH - Main.damage + 0.5);
+        caster.ultNum[2] = caster.ultNum[2] + extraSH * 0.4;
+        Main.damage = finalSH;
+        U.incCaster(caster, Main.damage);
+        caster.ql = caster.ql + (int) (extraSH / 10 + 0.5);
         
-        int finalSH = (int)(xishu*ch.shanghai);
-        int extraSH = finalSH - ch.shanghai;
-        ch.shanghai = finalSH;
-        U.dayin(sender.name+"使用了"+this.name+",对"+target.name+"造成了"+extraSH+"点额外伤害！");
-        this.cishu++;
+        U.waitSeconds(Const.INTERVEL / 2);
+        U.dayin(caster.name + "使用了<" + this.name + ">,造成了"
+                + (int) (Main.damage + 0.5) + "点伤害!(技能" + extraSH + "点)");
         return 0;
     }
 

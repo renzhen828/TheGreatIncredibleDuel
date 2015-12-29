@@ -7,14 +7,14 @@ import duel.RandomIntList;
 import duel.Skill;
 import duel.U;
 
-public class War6 extends Skill
+public class War8 extends Skill
 {
-    private double xishu = 1.2;
+    private double xishu = 0.9;
 
-    public War6(Hero caster, Hero target)
+    public War8(Hero caster, Hero target)
     {
-        this.mark = "6";
-        this.name = "猛烈打击";
+        this.mark = "8";
+        this.name = "玩命打击";
         this.caster = caster;
         this.target = target;
     }
@@ -25,20 +25,25 @@ public class War6 extends Skill
         double d = U.critical(caster);
         U.showCrit(caster, d);
         int ran = RandomIntList.getInstance().getNext() / 1000;
-        Main.damage = (95 + ran) * (caster.gj + 15) / (target.fy + 15) * d;
-        caster.ultNum[1] = caster.ultNum[1] + Main.damage / 10;
-        U.incTarget(target, Main.damage);
-        double finalSH = xishu * Main.damage;
-        int extraSH = (int) (finalSH - Main.damage + 0.5);
+        int extraSH = 0;
+        double damage = xishu * (95 + ran) * (caster.gj + 15)
+                / (target.fy + 15) * d;
+        if (caster.gj > target.fy)
+        {
+            Main.damage = xishu * (95 + ran) * (caster.gj + 15)
+                    / (target.fy + 15) * d * 2.5 - xishu * (95 + ran) * d * 1.5;
+            extraSH = (int) (Main.damage - damage);
+        } else
+            Main.damage = damage;
+        caster.ultNum[1] = caster.ultNum[1] / 10;
         caster.ultNum[2] = caster.ultNum[2] + extraSH * 0.4;
-        Main.damage = finalSH;
         U.incCaster(caster, Main.damage);
         caster.ql = caster.ql + (int) (extraSH / 10 + 0.5);
-        
+        U.incTarget(target, Main.damage - extraSH);
+
         U.waitSeconds(Const.INTERVEL / 2);
         U.dayin(caster.name + "使用了<" + this.name + ">,造成了"
                 + (int) (Main.damage + 0.5) + "点伤害!(技能" + extraSH + "点)");
         return 0;
     }
-
 }

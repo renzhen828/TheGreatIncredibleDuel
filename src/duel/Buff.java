@@ -3,11 +3,10 @@ package duel;
 public abstract class Buff
 {
     public String name = "";
-    public String type = ""; // js: ºı…À 
+    public String type = "";
     public int roundNum;
-    public Hero target, sender;
-    public CreateHero ch;
-    
+    public Hero caster, target;
+
     public abstract void buffOn();
 
     public abstract void buffOff();

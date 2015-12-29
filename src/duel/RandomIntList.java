@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class RandomIntList
 {
-    int index = 0;
+    private int index = 0;
 
     private static RandomIntList instance;
 
@@ -14,7 +14,7 @@ public class RandomIntList
     {
         for (int i = 0; i < 100; i++)
         {
-            al.add(new Integer((int) (Math.random() * 100)));
+            al.add(new Integer((int) (Math.random() * 10000)));
         }
     }
 
@@ -37,7 +37,6 @@ public class RandomIntList
         index++;
         return i_o.intValue();
     }
-
 
     private ArrayList<Integer> getAl()
     {

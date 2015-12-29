@@ -1,34 +1,32 @@
 package duel.buff;
 
 import duel.Buff;
-import duel.CreateHero;
 import duel.Hero;
+import duel.Main;
 import duel.U;
 
-public class Huti extends Buff
+public class Hbht extends Buff
 {
-    double xishu = 0.8;
+    double xishu = 0.7;
 
-    public Huti(Hero target, Hero sender, CreateHero ch)
+    public Hbht(Hero caster, Hero target)
     {
-        this.name = "护体";
-        this.type = "js";
+        this.name = "寒冰护体";
+        this.type = "hbht";
         this.roundNum = 4;
+        this.caster = caster;
         this.target = target;
-        this.sender = sender;
-        this.ch = ch;
     }
 
     @Override
     public void buffOn()
     {
-        if (target.equals(ch.target))
+        if (caster.equals(Main.target))
         {
-            int hutiSH = (int) (xishu * ch.shanghai);
-            int jsSH = ch.shanghai - hutiSH;
-            ch.shanghai = hutiSH;
-            U.dayin(target.name + "的" + this.name + "buff发生效果，减少" + jsSH
-                    + "点伤害！");
+            double hutiSH = xishu * Main.damage;
+            int jsSH = (int) (Main.damage - hutiSH + 0.5);
+            Main.damage = hutiSH;
+            U.dayin(target.name + "的<" + this.name + ">发生效果，减少" + jsSH + "点伤害");
         }
     }
 
@@ -59,5 +57,4 @@ public class Huti extends Buff
     {
 
     }
-
 }
