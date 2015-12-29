@@ -25,8 +25,11 @@ public class Main
     private static String startFight()
     {
         roundList = new ArrayList<Round>();
-        while (p1.xl > 0 && p2.xl > 0)
+        int zero = 0;
+        while (0 == zero)
         {
+            if (p1.xl <= 0)
+                break;
             U.dayin(" ");
             U.showXl(p1);
             U.showXl(p2);
@@ -34,6 +37,8 @@ public class Main
             target = p2;
             damage = 0;
             round(p1, p2);
+            if (p2.xl <= 0)
+                break;
             U.dayin(" ");
             U.showXl(p1);
             U.showXl(p2);

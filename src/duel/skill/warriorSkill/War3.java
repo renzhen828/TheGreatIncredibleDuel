@@ -31,12 +31,12 @@ public class War3 extends Skill
         if (caster.gj > target.fy)
         {
             Main.damage = xishu * (95 + ran) * (caster.gj + 15)
-                    / (target.fy + 15) * d * 2.5 - xishu * (95 + ran) * d * 1.5;
+                    / (target.fy + 15) * d * 2 - xishu * (95 + ran) * d * 1;
             extraSH = (int) (Main.damage - damage);
         } else
             Main.damage = damage;
-        caster.ultNum[1] = caster.ultNum[1] / 10;
-        caster.ultNum[2] = caster.ultNum[2] + extraSH * 0.4;
+        caster.ultNum[0] = caster.ultNum[0] / 10;
+        caster.ultNum[1] = caster.ultNum[1] + extraSH * 0.4;
         U.incCaster(caster, Main.damage);
         caster.ql = caster.ql + (int) (extraSH / 10 + 0.5);
         U.incTarget(target, Main.damage - extraSH);

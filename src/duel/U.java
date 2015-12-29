@@ -82,24 +82,24 @@ public class U
         for (Skill skill : caster.skillList)
             if (1 == skill.area)
             {
-                list = list + skill.describeSkill();
-                if (false == skill.cast)
+                if (!skill.cast)
                     list = list + "X";
-                list = list + "\t";
-                cast = true;
+                list = list + skill.describeSkill() + "\t";
+                if (skill.cast)
+                    cast = true;
             }
         for (Skill skill : caster.ultList)
             if (1 == skill.area)
             {
-                list = list + skill.describeUlt();
-                if (false == skill.cast)
+                if (!skill.cast)
                     list = list + "X";
-                list = list + "\t";
-                cast = true;
+                list = list + skill.describeUlt() + "\t";
+                if (skill.cast)
+                    cast = true;
             }
         dayin(caster.name + "请选择技能：");
         dayin(list);
-        return(cast);
+        return (cast);
     }
 
     public static void deleteBuffByType(Hero target, String buffType)
@@ -169,13 +169,15 @@ public class U
         ss = U.duqu();
         ss = U.duqu();
         ss = ss + " ";
-        waitSeconds(Const.INTERVEL);
+        waitSeconds(Const.INTERVEL * 3);
         U.dayin("抱歉");
-        waitSeconds(Const.INTERVEL * 6);
+        waitSeconds(Const.INTERVEL * 3);
+        U.dayin("…………");
+        waitSeconds(Const.INTERVEL * 2);
         U.dayin("XXX对" + caster.name + "施放了死亡一指，造成十万点伤害。");
-        waitSeconds(Const.INTERVEL);
+        waitSeconds(Const.INTERVEL * 2);
         U.dayin(caster.name + "离开了人世。");
-        waitSeconds(Const.INTERVEL);
+        waitSeconds(Const.INTERVEL * 2);
         U.dayin("=========Game Over=========");
         System.exit(0);
     }

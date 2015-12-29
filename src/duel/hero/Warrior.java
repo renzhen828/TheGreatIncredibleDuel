@@ -9,6 +9,7 @@ import duel.skill.warriorSkill.War5;
 import duel.skill.warriorSkill.War6;
 import duel.skill.warriorSkill.War7;
 import duel.skill.warriorSkill.War8;
+import duel.skill.warriorSkill.WarE;
 import duel.skill.warriorSkill.WarQ;
 import duel.skill.warriorSkill.WarW;
 
@@ -32,6 +33,6 @@ public class Warrior extends Hero
     {
         this.ultList.add(new WarQ(this, target));
         this.ultList.add(new WarW(this, target));
-        this.ultList.add(new WarQ(this, target));
+        this.ultList.add(new WarE(this, target));
     }
 }

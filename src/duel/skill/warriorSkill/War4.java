@@ -26,11 +26,12 @@ public class War4 extends Skill
         U.showCrit(caster, d);
         int ran = RandomIntList.getInstance().getNext() / 1000;
         Main.damage = (95 + ran) * (caster.gj + 15) / (target.fy + 15) * d;
-        caster.ultNum[1] = caster.ultNum[1] + Main.damage / 10;
+        caster.ultNum[0] = caster.ultNum[0] + Main.damage / 10;
         U.incTarget(target, Main.damage);
+        target.ql=target.ql+8;
         double finalSH = xishu * Main.damage;
         int extraSH = (int) (finalSH - Main.damage + 0.5);
-        caster.ultNum[2] = caster.ultNum[2] + extraSH * 0.4;
+        caster.ultNum[1] = caster.ultNum[1] + extraSH * 0.4;
         Main.damage = finalSH;
         U.incCaster(caster, Main.damage);
         caster.ql = caster.ql + (int) (extraSH / 10 + 0.5);

@@ -7,14 +7,14 @@ import duel.RandomIntList;
 import duel.Skill;
 import duel.U;
 
-public class WarQ extends Skill
+public class WarE extends Skill
 {
     private double xishu = 1.6;
 
-    public WarQ(Hero caster, Hero target)
+    public WarE(Hero caster, Hero target)
     {
-        this.mark = "Q";
-        this.name = "剑刃风暴";
+        this.mark = "E";
+        this.name = "大风车";
         this.caster = caster;
         this.target = target;
     }

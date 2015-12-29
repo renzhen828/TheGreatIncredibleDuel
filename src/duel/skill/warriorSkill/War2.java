@@ -30,8 +30,8 @@ public class War2 extends Skill
         int finalFY = (int) (target.fy * 0.9);
         int decFY=target.fy-finalFY;
         target.fy=finalFY;
-        caster.ultNum[1]=caster.ultNum[1]+Main.damage/10;
-        caster.ultNum[2]=caster.ultNum[2]+decFY;
+        caster.ultNum[0]=caster.ultNum[0]+Main.damage/10;
+        caster.ultNum[1]=caster.ultNum[1]+decFY;
         U.incCaster(caster, Main.damage);
         U.incTarget(target, Main.damage);
         
