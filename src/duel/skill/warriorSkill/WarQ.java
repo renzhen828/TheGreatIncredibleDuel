@@ -32,11 +32,15 @@ public class WarQ extends Skill
             extraSH = xishu * (95 + ran) * (caster.gj + 15) / (target.fy + 15)
                     * d * 2 - xishu * (95 + ran) * d * 2;
         Main.damage = extraSH + xishu * (95 + ran) * (caster.gj + 15) / 100 * d;
-        U.incCaster(caster, Main.damage);
+
+        Main.ignDamDec = true;
+
+        U.incCaster(caster, Main.damage / 2);
 
         U.waitSeconds(Const.INTERVEL / 2);
         U.dayin(caster.name + "使用了<" + this.name + ">,造成了"
-                + (int) (Main.damage + 0.5) + "点伤害!(技能" + (int) extraSH + "点)");
+                + (int) (Main.damage + 0.5) + "点伤害!(技能伤害" + (int) extraSH
+                + "点)");
         return 0;
     }
 

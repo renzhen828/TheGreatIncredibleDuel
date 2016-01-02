@@ -6,11 +6,13 @@ import duel.Main;
 import duel.RandomIntList;
 import duel.Skill;
 import duel.U;
+import duel.buff.Stun;
 
 public class WarW extends Skill
 {
     private double xishu = 0.4;
-
+    String buffType = "Stun";
+    
     public WarW(Hero caster, Hero target)
     {
         this.mark = "W";
@@ -27,11 +29,10 @@ public class WarW extends Skill
         int ran = RandomIntList.getInstance().getNext() / 1000;
         Main.damage = xishu * (95 + ran) * (caster.gj + 15) / (target.fy + 15)
                 * d;
+        U.deleteBuffByType(target, buffType);
+        target.buffList.add(new Stun(caster, target));
+
         U.incCaster(caster, Main.damage);
-        for (Skill skill : target.skillList)
-            skill.cast = false;
-        for (Skill skill : target.ultList)
-            skill.cast = false;
 
         U.waitSeconds(Const.INTERVEL / 2);
         U.dayin(caster.name + "使用了<" + this.name + ">,造成了"

@@ -25,20 +25,20 @@ public class War1 extends Skill
         double d = U.critical(caster);
         U.showCrit(caster, d);
         int ran = RandomIntList.getInstance().getNext() / 1000;
-        Main.damage = (95 + ran) * (caster.gj + 15) / (target.fy + 15) * d;
-        caster.ultNum[0] = caster.ultNum[0] + Main.damage / 10;
-        U.incTarget(target, Main.damage);
-        target.ql=target.ql+8;
-        double finalSH = xishu * Main.damage;
-        int extraSH = (int) (finalSH - Main.damage + 0.5);
-        caster.ultNum[1] = caster.ultNum[1] + extraSH * 0.4;
-        Main.damage = finalSH;
-        U.incCaster(caster, Main.damage);
-        caster.ql = caster.ql + (int) (extraSH / 10 + 0.5);
-        
+        double comDam = (95 + ran) * (caster.gj + 15) / (target.fy + 15) * d;
+        Main.damage = xishu * comDam;
+        int exDam = (int) (Main.damage - comDam + 0.5);
+
+        caster.ultList.get(0).ultNum = caster.ultList.get(0).ultNum + comDam
+                / 10;
+        caster.ultList.get(1).ultNum = caster.ultList.get(1).ultNum + exDam
+                * 0.4;
+        U.incTarget(target, comDam + 50);
+        U.incCaster(caster, Main.damage + exDam);
+
         U.waitSeconds(Const.INTERVEL / 2);
         U.dayin(caster.name + "使用了<" + this.name + ">,造成了"
-                + (int) (Main.damage + 0.5) + "点伤害!(技能" + extraSH + "点)");
+                + (int) (Main.damage + 0.5) + "点伤害!(技能伤害" + exDam + "点)");
         return 0;
     }
 

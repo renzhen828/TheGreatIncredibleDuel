@@ -5,14 +5,14 @@ import duel.Hero;
 import duel.Main;
 import duel.U;
 
-public class Hbht extends Buff
+public class Dppz extends Buff
 {
-    double xishu = 0.7;
+    double xishu = 0.3;
 
-    public Hbht(Hero caster, Hero target)
+    public Dppz(Hero caster, Hero target)
     {
-        this.name = "寒冰护体";
-        this.type = "hbht";
+        this.name = "盾牌屏障";
+        this.type = "dppz";
         this.Quality = 1;
         this.roundNum = 4;
         this.caster = caster;
@@ -27,8 +27,9 @@ public class Hbht extends Buff
             double finalDam = xishu * Main.damage;
             int decDam = (int) (Main.damage - finalDam + 0.5);
             Main.damage = finalDam;
-            U.dayin(target.name + "的  *" + this.name + "  生效，减少" + decDam
-                    + "点伤害");
+            if (Main.damage > 0)
+                U.dayin(target.name + "的  *" + this.name + "  生效，减少" + decDam
+                        + "点伤害");
         }
     }
 
@@ -47,7 +48,7 @@ public class Hbht extends Buff
     @Override
     public void roundExecuteDo()
     {
-
+        
     }
 
     @Override

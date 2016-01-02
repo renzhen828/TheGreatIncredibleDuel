@@ -4,7 +4,8 @@ public abstract class Buff
 {
     public String name = "";
     public String type = "";
-    public int roundNum;
+    public int Quality = 0;
+    public int roundNum = 0;
     public Hero caster, target;
 
     public abstract void buffOn();

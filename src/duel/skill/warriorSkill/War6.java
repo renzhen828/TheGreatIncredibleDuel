@@ -1,20 +1,21 @@
 package duel.skill.warriorSkill;
 
+import duel.Buff;
 import duel.Const;
 import duel.Hero;
 import duel.Main;
-import duel.RandomIntList;
 import duel.Skill;
 import duel.U;
+import duel.buff.Immune;
 
 public class War6 extends Skill
 {
-    private double xishu = 1.2;
+    String buffType = "Immune";
 
     public War6(Hero caster, Hero target)
     {
         this.mark = "6";
-        this.name = "猛烈打击";
+        this.name = "狂暴之怒";
         this.caster = caster;
         this.target = target;
     }
@@ -22,24 +23,72 @@ public class War6 extends Skill
     @Override
     public int perform()
     {
-        double d = U.critical(caster);
-        U.showCrit(caster, d);
-        int ran = RandomIntList.getInstance().getNext() / 1000;
-        Main.damage = (95 + ran) * (caster.gj + 15) / (target.fy + 15) * d;
-        caster.ultNum[0] = caster.ultNum[0] + Main.damage / 10;
-        U.incTarget(target, Main.damage);
-        target.ql=target.ql+8;
-        double finalSH = xishu * Main.damage;
-        int extraSH = (int) (finalSH - Main.damage + 0.5);
-        caster.ultNum[1] = caster.ultNum[1] + extraSH * 0.4;
-        Main.damage = finalSH;
-        U.incCaster(caster, Main.damage);
-        caster.ql = caster.ql + (int) (extraSH / 10 + 0.5);
-        
+        String debuff = "";
+        if (1 == Main.half)
+        {
+            if (caster.gj < Main.gj1)
+            {
+                caster.gj = Main.gj1;
+                debuff = debuff + "  降低攻击";
+            } else if (caster.fy < Main.fy1)
+            {
+                caster.fy = Main.fy1;
+                debuff = debuff + "  降低防御";
+            }
+        } else
+        {
+            if (caster.gj < Main.gj2)
+            {
+                caster.gj = Main.gj2;
+                debuff = debuff + "  降低攻击";
+            } else if (caster.fy < Main.fy2)
+            {
+                caster.fy = Main.fy2;
+                debuff = debuff + "  降低防御";
+            }
+        }
+
+        int finalGj = (int) (caster.gj * 1.1);
+        int incGj = finalGj - caster.gj;
+        caster.gj = finalGj;
+        if (1 == Main.half)
+        {
+            if (caster.fy < Main.fy1)
+            {
+                caster.fy = Main.fy1;
+                debuff = debuff + "  降低攻击";
+            }
+        } else if (caster.fy < Main.fy2)
+        {
+            caster.fy = Main.fy2;
+            debuff = debuff + "  降低攻击";
+        }
+
+        U.deleteBuffByType(caster, buffType);
+        caster.buffList.add(new Immune(caster, target));
+
+        int index = -1;
+        do
+        {
+            index = -1;
+            for (Buff buff : caster.buffList)
+                if (2 == buff.Quality)
+                    index = caster.buffList.indexOf(buff);
+            if (index > -1)
+            {
+                debuff = debuff + "  *" + caster.buffList.get(index).name;
+                caster.buffList.remove(index);
+            }
+        } while (index > -1);
+        if (debuff.equals(""))
+            debuff = "无";
+
+        caster.ultList.get(2).ultNum = caster.ultList.get(2).ultNum + 12;
+        U.incCaster(caster, 50);
+
         U.waitSeconds(Const.INTERVEL / 2);
-        U.dayin(caster.name + "使用了<" + this.name + ">,造成了"
-                + (int) (Main.damage + 0.5) + "点伤害!(技能" + extraSH + "点)");
+        U.dayin(caster.name + "使用了<" + this.name + ">,增加攻击" + incGj + "点,解除特效"
+                + debuff + ",并获得  *免疫");
         return 0;
     }
-
 }

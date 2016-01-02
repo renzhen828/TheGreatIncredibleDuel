@@ -26,7 +26,6 @@ public class Mage7 extends Skill
         Main.damage = (int) 50 * caster.gj / target.fy + ran;
         U.deleteBuffByType(caster, buffType);
         caster.buffList.add(new Hbht(caster, target));
-        cishu++;
         return 0;
     }
 

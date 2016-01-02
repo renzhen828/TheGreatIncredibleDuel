@@ -2,19 +2,18 @@ package duel.skill.warriorSkill;
 
 import duel.Const;
 import duel.Hero;
-import duel.Main;
-import duel.RandomIntList;
 import duel.Skill;
 import duel.U;
+import duel.buff.Dpfs;
 
 public class War8 extends Skill
 {
-    private double xishu = 0.9;
+    String buffType = "dpfs";
 
     public War8(Hero caster, Hero target)
     {
         this.mark = "8";
-        this.name = "玩命打击";
+        this.name = "盾牌反射";
         this.caster = caster;
         this.target = target;
     }
@@ -22,28 +21,14 @@ public class War8 extends Skill
     @Override
     public int perform()
     {
-        double d = U.critical(caster);
-        U.showCrit(caster, d);
-        int ran = RandomIntList.getInstance().getNext() / 1000;
-        int extraSH = 0;
-        double damage = xishu * (95 + ran) * (caster.gj + 15)
-                / (target.fy + 15) * d;
-        if (caster.gj > target.fy)
-        {
-            Main.damage = xishu * (95 + ran) * (caster.gj + 15)
-                    / (target.fy + 15) * d * 2 - xishu * (95 + ran) * d * 1;
-            extraSH = (int) (Main.damage - damage);
-        } else
-            Main.damage = damage;
-        caster.ultNum[0] = caster.ultNum[0] / 10;
-        caster.ultNum[1] = caster.ultNum[1] + extraSH * 0.4;
-        U.incCaster(caster, Main.damage);
-        caster.ql = caster.ql + (int) (extraSH / 10 + 0.5);
-        U.incTarget(target, Main.damage - extraSH);
+        U.deleteBuffByType(caster, buffType);
+        caster.buffList.add(new Dpfs(caster, target));
+
+        caster.ultList.get(2).ultNum = caster.ultList.get(2).ultNum + 12;
 
         U.waitSeconds(Const.INTERVEL / 2);
-        U.dayin(caster.name + "使用了<" + this.name + ">,造成了"
-                + (int) (Main.damage + 0.5) + "点伤害!(技能" + extraSH + "点)");
+        U.dayin(caster.name + "使用了<" + this.name + ">,获得特效");
         return 0;
     }
+
 }

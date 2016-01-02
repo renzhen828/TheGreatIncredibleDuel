@@ -54,8 +54,15 @@ public class U
     public static void showXl(Hero p)
     {
         waitSeconds(Const.INTERVEL / 2);
-        U.dayin(p.name + "**生命:" + p.xl + "**能量:" + p.ql + "**攻击:" + p.gj
-                + "**防御:" + p.fy);
+        String strBuff = "";
+        for (Buff buff : p.buffList)
+        {
+            if (buff.roundNum > 0)
+                strBuff = strBuff + "  *" + buff.name;
+            buff.roundStartDo();
+        }
+        U.dayin(p.name + "\t生命:" + p.xl + "\t能量:" + p.ql + "\t攻击:" + p.gj
+                + "\t防御:" + p.fy + "  " + strBuff);
     }
 
     public static void waitSeconds(double s)
@@ -155,7 +162,7 @@ public class U
 
     public static void incCaster(Hero caster, double damage)
     {
-        caster.ql = caster.ql + (int) (damage / 10 + 0.5);
+        caster.ql = caster.ql + (int) (damage / 12 + 0.5);
     }
 
     public static void incTarget(Hero target, double damage)

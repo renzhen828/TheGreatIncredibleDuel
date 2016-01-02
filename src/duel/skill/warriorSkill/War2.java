@@ -25,19 +25,21 @@ public class War2 extends Skill
         double d = U.critical(caster);
         U.showCrit(caster, d);
         int ran = RandomIntList.getInstance().getNext() / 1000;
-        Main.damage = (95 + ran) * (caster.gj + 15) / (target.fy + 15) * d;
-        Main.damage = xishu * Main.damage;
-        int finalFY = (int) (target.fy * 0.9);
-        int decFY=target.fy-finalFY;
-        target.fy=finalFY;
-        caster.ultNum[0]=caster.ultNum[0]+Main.damage/10;
-        caster.ultNum[1]=caster.ultNum[1]+decFY;
-        U.incCaster(caster, Main.damage);
+        Main.damage = xishu * (95 + ran) * (caster.gj + 15) / (target.fy + 15)
+                * d;
+
+        int finalFy = (int) (target.fy * 0.9);
+        int decFy = target.fy - finalFy;
+        target.fy = finalFy;
+
+        caster.ultList.get(0).ultNum = caster.ultList.get(0).ultNum
+                + Main.damage / 20;
         U.incTarget(target, Main.damage);
-        
+        U.incCaster(caster, Main.damage);
+
         U.waitSeconds(Const.INTERVEL / 2);
         U.dayin(caster.name + "使用了<" + this.name + ">,造成了"
-                + (int) (Main.damage + 0.5) + "点伤害!(减少防御" + decFY + "点)");
+                + (int) (Main.damage + 0.5) + "点伤害!(减少防御" + decFy + "点)");
         return 0;
     }
 }

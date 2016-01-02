@@ -1,20 +1,19 @@
 package duel.skill.warriorSkill;
 
+import duel.Buff;
 import duel.Const;
 import duel.Hero;
 import duel.Main;
-import duel.RandomIntList;
 import duel.Skill;
 import duel.U;
 
 public class War7 extends Skill
 {
-    private double xishu = 1.2;
 
     public War7(Hero caster, Hero target)
     {
         this.mark = "7";
-        this.name = "疯狂打击";
+        this.name = "破胆怒吼";
         this.caster = caster;
         this.target = target;
     }
@@ -22,23 +21,56 @@ public class War7 extends Skill
     @Override
     public int perform()
     {
-        double d = U.critical(caster);
-        U.showCrit(caster, d);
-        int ran = RandomIntList.getInstance().getNext() / 1000;
-        Main.damage = (95 + ran) * (caster.gj + 15) / (target.fy + 15) * d;
-        caster.ultNum[0] = caster.ultNum[0] + Main.damage / 10;
-        U.incTarget(target, Main.damage);
-        target.ql=target.ql+8;
-        double finalSH = xishu * Main.damage;
-        int extraSH = (int) (finalSH - Main.damage + 0.5);
-        caster.ultNum[1] = caster.ultNum[1] + extraSH * 0.4;
-        Main.damage = finalSH;
-        U.incCaster(caster, Main.damage);
-        caster.ql = caster.ql + (int) (extraSH / 10 + 0.5);
-        
+        String strBuff = "";
+        if (1 == Main.half)
+        {
+            if (target.gj > Main.gj1)
+            {
+                target.gj = Main.gj1;
+                strBuff = strBuff + "  增加攻击";
+            } else if (target.fy > Main.fy1)
+            {
+                target.fy = Main.fy1;
+                strBuff = strBuff + "  增加防御";
+            }
+        } else
+        {
+            if (target.gj > Main.gj2)
+            {
+                target.gj = Main.gj2;
+                strBuff = strBuff + "  增加攻击";
+            } else if (target.fy > Main.fy2)
+            {
+                target.fy = Main.fy2;
+                strBuff = strBuff + "  增加防御";
+            }
+        }
+
+        int index = -1;
+        do
+        {
+            index = -1;
+            for (Buff buff : target.buffList)
+                if (1 == buff.Quality)
+                    index = target.buffList.indexOf(buff);
+            if (index > -1)
+            {
+                strBuff = strBuff + "  *" + target.buffList.get(index).name;
+                target.buffList.remove(index);
+            }
+        } while (index > -1);
+        if (strBuff.equals(""))
+            strBuff = "无";
+
+        caster.ultList.get(2).ultNum = caster.ultList.get(2).ultNum + 12;
+        if (target.ql > 50)
+            target.ql = target.ql - 50;
+        else
+            target.ql = 0;
+        caster.ql = caster.ql + 20;
+
         U.waitSeconds(Const.INTERVEL / 2);
-        U.dayin(caster.name + "使用了<" + this.name + ">,造成了"
-                + (int) (Main.damage + 0.5) + "点伤害!(技能" + extraSH + "点)");
+        U.dayin(caster.name + "使用了<" + this.name + ">,震慑住了敌方！驱散特效" + strBuff);
         return 0;
     }
 

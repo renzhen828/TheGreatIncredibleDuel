@@ -2,19 +2,18 @@ package duel.skill.warriorSkill;
 
 import duel.Const;
 import duel.Hero;
-import duel.Main;
-import duel.RandomIntList;
 import duel.Skill;
 import duel.U;
+import duel.buff.Dppz;
 
 public class WarE extends Skill
 {
-    private double xishu = 1.6;
+    String buffType = "dppz";
 
     public WarE(Hero caster, Hero target)
     {
         this.mark = "E";
-        this.name = "大风车";
+        this.name = "盾牌屏障";
         this.caster = caster;
         this.target = target;
     }
@@ -22,21 +21,16 @@ public class WarE extends Skill
     @Override
     public int perform()
     {
-        double d = U.critical(caster);
-        if (d < 1)
-            d = 1;
-        U.showCrit(caster, d);
-        int ran = RandomIntList.getInstance().getNext() / 1000;
-        double extraSH = 0;
-        if (caster.gj > target.fy)
-            extraSH = xishu * (95 + ran) * (caster.gj + 15) / (target.fy + 15)
-                    * d * 2 - xishu * (95 + ran) * d * 2;
-        Main.damage = extraSH + xishu * (95 + ran) * (caster.gj + 15) / 100 * d;
-        U.incCaster(caster, Main.damage);
+        U.deleteBuffByType(caster, buffType);
+        caster.buffList.add(new Dppz(caster, target));
+
+        if (caster.ql <= 60)
+            caster.ql = 120;
+        else
+            caster.ql = caster.ql + 60;
 
         U.waitSeconds(Const.INTERVEL / 2);
-        U.dayin(caster.name + "使用了<" + this.name + ">,造成了"
-                + (int) (Main.damage + 0.5) + "点伤害!(技能" + (int) extraSH + "点)");
+        U.dayin(caster.name + "使用了<" + this.name + ">,获得特效");
         return 0;
     }
 

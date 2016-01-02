@@ -7,6 +7,7 @@ public abstract class Skill
     public String name = "skill";
     public String mark = "null";
     public Hero caster, target;
+    public double ultNum = 0;
 
     public abstract int perform();
 
