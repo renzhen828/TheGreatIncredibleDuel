@@ -1,5 +1,6 @@
 package duel;
 
+
 public final class Const
 {
     public final static double INTERVEL = 0.5;
@@ -11,4 +12,5 @@ public final class Const
             "玛吉纳", "拉比克", "莉娜", "斯温", "昆卡", "斯拉克", "金扎克", "艾欧", "崔希丝", "涅沙",
             "巴拉那", "刚铎", "墨丘利", "菲尼克斯", "萨尔", "卡尔", "艾瑞达", "利维坦", "贝恩霍勒",
             "巴拉森", "拉席克" };
+
 }

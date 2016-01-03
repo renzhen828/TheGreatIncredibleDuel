@@ -87,7 +87,7 @@ public class War6 extends Skill
         U.incCaster(caster, 50);
 
         U.waitSeconds(Const.INTERVEL / 2);
-        U.dayin(caster.name + "使用了<" + this.name + ">,增加攻击" + incGj + "点,解除特效"
+        U.dayin(caster.name + "使用了<" + this.name + ">,增加攻击" + incGj + "点,解除自身特效"
                 + debuff + ",并获得  *免疫");
         return 0;
     }

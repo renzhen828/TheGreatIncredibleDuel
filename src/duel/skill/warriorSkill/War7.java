@@ -70,7 +70,7 @@ public class War7 extends Skill
         caster.ql = caster.ql + 20;
 
         U.waitSeconds(Const.INTERVEL / 2);
-        U.dayin(caster.name + "使用了<" + this.name + ">,震慑住了敌方！驱散特效" + strBuff);
+        U.dayin(caster.name + "使用了<" + this.name + ">,震慑住了敌方！驱散对方特效" + strBuff);
         return 0;
     }
 

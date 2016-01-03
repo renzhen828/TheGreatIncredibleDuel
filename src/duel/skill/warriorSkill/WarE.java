@@ -30,7 +30,7 @@ public class WarE extends Skill
             caster.ql = caster.ql + 60;
 
         U.waitSeconds(Const.INTERVEL / 2);
-        U.dayin(caster.name + "使用了<" + this.name + ">,获得特效");
+        U.dayin(caster.name + "使用了<" + this.name + ">,获得此特效");
         return 0;
     }
 

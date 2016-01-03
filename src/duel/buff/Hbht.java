@@ -7,7 +7,7 @@ import duel.U;
 
 public class Hbht extends Buff
 {
-    double xishu = 0.7;
+    double xishu = 0.6;
 
     public Hbht(Hero caster, Hero target)
     {
@@ -22,14 +22,17 @@ public class Hbht extends Buff
     @Override
     public void buffOn()
     {
+        int decDam = 0;
         if ((caster.equals(Main.target)) && (false == Main.ignDamDec))
         {
             double finalDam = xishu * Main.damage;
-            int decDam = (int) (Main.damage - finalDam + 0.5);
+            decDam = (int) (Main.damage - finalDam + 0.5);
             Main.damage = finalDam;
             U.dayin(target.name + "的  *" + this.name + "  生效，减少" + decDam
                     + "点伤害");
         }
+        if (decDam > 0)
+            target.ql = target.ql - 8;
     }
 
     @Override

@@ -147,6 +147,8 @@ public class U
             d = 1.4;
         else if (crit <= 35)
             d = 0.7;
+        for (Critical c : Main.critList)
+            d = c.buffCrit(d, caster);
         return d;
     }
 
@@ -158,6 +160,8 @@ public class U
             U.dayin(caster.name + "打出了致命的一击，效果拔群!");
         else if (0.7 == d)
             U.dayin(caster.name + "发出奋力一击，然而并没有准确命中");
+        else if (1.8 == d)
+            U.dayin(caster.name + "猛烈一击，打出成吨伤害！");
     }
 
     public static void incCaster(Hero caster, double damage)

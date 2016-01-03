@@ -17,4 +17,5 @@ public abstract class Buff
     public abstract void roundExecuteDo();
 
     public abstract void roundEndDo();
+
 }
