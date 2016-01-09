@@ -16,6 +16,7 @@ public class Mage6 extends Skill
         this.name = "施法专注";
         this.caster = caster;
         this.target = target;
+        this.skillType = 0;
     }
 
     @Override
@@ -23,12 +24,13 @@ public class Mage6 extends Skill
     {
         U.deleteBuffByType(caster, buffType);
         caster.buffList.add(new Sfzz(caster, target));
-        
-        caster.ultList.get(0).ultNum = caster.ultList.get(0).ultNum + 12;
-        caster.ql = caster.ql + 50;
+
+        caster.ultList.get(0).ultNum = caster.ultList.get(0).ultNum + 8;
+        caster.ultList.get(1).ultNum = caster.ultList.get(1).ultNum + 6;
+        caster.ql = caster.ql + 40;
 
         U.waitSeconds(Const.INTERVEL / 2);
-        U.dayin(caster.name + "使用了<" + this.name + ">,大量法术力凝聚到身边");
+        U.dayin(caster.name + "使用了<" + this.name + ">,将法术力凝聚起来");
         return 0;
     }
 }

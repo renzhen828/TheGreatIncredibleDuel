@@ -16,6 +16,7 @@ public class WarE extends Skill
         this.name = "盾牌屏障";
         this.caster = caster;
         this.target = target;
+        this.skillType = 2;
     }
 
     @Override
@@ -30,7 +31,7 @@ public class WarE extends Skill
             caster.ql = caster.ql + 60;
 
         U.waitSeconds(Const.INTERVEL / 2);
-        U.dayin(caster.name + "使用了<" + this.name + ">,获得此特效");
+        U.dayin(caster.name + "使用了<" + this.name + ">,坚不可摧的防御！");
         return 0;
     }
 

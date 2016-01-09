@@ -48,7 +48,7 @@ public class Immune extends Buff
             if (index > -1)
             {
                 debuff = debuff + "  *" + caster.buffList.get(index).name;
-                target.buffList.remove(index);
+                caster.buffList.remove(index);
             }
         } while (index > -1);
         if (!(debuff.equals("")))

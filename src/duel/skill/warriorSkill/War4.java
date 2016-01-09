@@ -17,6 +17,7 @@ public class War4 extends Skill
         this.name = "³ËÊ¤×·»÷";
         this.caster = caster;
         this.target = target;
+        this.skillType = 1;
     }
 
     @Override

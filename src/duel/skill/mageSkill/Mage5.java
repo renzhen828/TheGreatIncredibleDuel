@@ -6,11 +6,13 @@ import duel.Main;
 import duel.RandomIntList;
 import duel.Skill;
 import duel.U;
+import duel.buff.Bsxx;
 import duel.hero.Mage;
 
 public class Mage5 extends Skill
 {
     private double xishu = 0.3;
+    String buffType = "bsxx";
 
     public Mage5(Hero caster, Hero target)
     {
@@ -18,6 +20,7 @@ public class Mage5 extends Skill
         this.name = "冰霜新星";
         this.caster = caster;
         this.target = target;
+        this.skillType = 2;
     }
 
     @Override
@@ -28,6 +31,8 @@ public class Mage5 extends Skill
         int ran = RandomIntList.getInstance().getNext() / 1000;
         Main.damage = xishu * (95 + ran) * (caster.gj + 15) / (target.fy + 15)
                 * d;
+        U.deleteBuffByType(target, buffType);
+        target.buffList.add(new Bsxx(caster, target));
 
         caster.ultList.get(2).ultNum = caster.ultList.get(2).ultNum
                 + Main.damage * 0.4;
@@ -37,7 +42,8 @@ public class Mage5 extends Skill
         U.waitSeconds(Const.INTERVEL / 2);
         U.dayin(caster.name + "使用了<" + this.name + ">,造成了"
                 + (int) (Main.damage + 0.5) + "点伤害!并将对方冻在原地");
-        Mage.coldCount(4, caster, target);
+        Mage m = (Mage) caster;
+        m.coldCount(4, caster, target);
         return 0;
     }
 }

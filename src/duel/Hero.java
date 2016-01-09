@@ -15,4 +15,9 @@ public abstract class Hero
     public abstract void initSkill(Hero p);
 
     public abstract void initUlt(Hero p);
+
+    public abstract String discribe();
+
+    public abstract void MageQ();
+
 }

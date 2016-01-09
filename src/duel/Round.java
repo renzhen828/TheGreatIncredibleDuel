@@ -6,7 +6,7 @@ public class Round
 {
     private Hero attacker, target;
     private Boolean ult = false;
-    private Skill csk = null;
+    public Skill csk = null;
     public int atcGj, atcFy, atcXl, tgtGj, tgtFy, tgtXl;
     public double damage = 0;
 
@@ -108,8 +108,7 @@ public class Round
                 totality = totality + skill.cishu + 1;
         for (int i = 1; i <= skillNum; i++)
         {
-            RandomIntList randomList = RandomIntList.getInstance();
-            int ranNum = randomList.getNext() % totality + 1;
+            int ranNum = RandomIntList.getInstance().getNext() % totality + 1;
             int k = 0;
             for (Skill skill : attacker.skillList)
                 if (0 == skill.area)
@@ -182,7 +181,7 @@ public class Round
             if ("GG".equals(mark))
             {
                 U.waitSeconds(Const.INTERVEL * 1);
-                U.dayin("在一片欢声笑语,");
+                U.dayin("在一片欢声笑语中,");
                 U.waitSeconds(Const.INTERVEL * 3);
                 U.dayin(caster.name + "打出了GG………");
                 U.waitSeconds(Const.INTERVEL * 2);

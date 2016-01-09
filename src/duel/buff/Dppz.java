@@ -28,7 +28,7 @@ public class Dppz extends Buff
             int decDam = (int) (Main.damage - finalDam + 0.5);
             Main.damage = finalDam;
             if (Main.damage > 0)
-                U.dayin(target.name + "的  *" + this.name + "  生效，减少" + decDam
+                U.dayin(caster.name + "的  *" + this.name + "  生效，减少" + decDam
                         + "点伤害");
         }
     }
@@ -48,7 +48,7 @@ public class Dppz extends Buff
     @Override
     public void roundExecuteDo()
     {
-        
+
     }
 
     @Override

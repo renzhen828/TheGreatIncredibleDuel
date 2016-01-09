@@ -28,8 +28,9 @@ public class Hbht extends Buff
             double finalDam = xishu * Main.damage;
             decDam = (int) (Main.damage - finalDam + 0.5);
             Main.damage = finalDam;
-            U.dayin(target.name + "的  *" + this.name + "  生效，减少" + decDam
-                    + "点伤害");
+            if (Main.damage > 0)
+                U.dayin(caster.name + "的  *" + this.name + "  生效，减少" + decDam
+                        + "点伤害");
         }
         if (decDam > 0)
             target.ql = target.ql - 8;

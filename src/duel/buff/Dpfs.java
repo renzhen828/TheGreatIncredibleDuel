@@ -12,7 +12,7 @@ public class Dpfs extends Buff
     public Dpfs(Hero caster, Hero target)
     {
         this.name = "盾牌反射";
-        this.type = "dppz";
+        this.type = "dpfs";
         this.Quality = 1;
         this.roundNum = 2;
         this.caster = caster;
@@ -31,7 +31,7 @@ public class Dpfs extends Buff
 
             if (Main.damage > 0)
             {
-                U.dayin(target.name + "的  *" + this.name + "  生效,减少" + decDam
+                U.dayin(caster.name + "的  *" + this.name + "  生效,减少" + decDam
                         + "点伤害,并反射给对方");
                 this.roundNum = 0;
             }

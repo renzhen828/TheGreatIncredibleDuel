@@ -18,6 +18,7 @@ public class Mage2 extends Skill
         this.name = "寒冰箭";
         this.caster = caster;
         this.target = target;
+        this.skillType = 2;
     }
 
     @Override
@@ -28,6 +29,7 @@ public class Mage2 extends Skill
         int ran = RandomIntList.getInstance().getNext() / 1000;
         Main.damage = xishu * (95 + ran) * (caster.gj + 15) / (target.fy + 15)
                 * d;
+        Mage m = (Mage) caster;
 
         caster.ultList.get(2).ultNum = caster.ultList.get(2).ultNum
                 + Main.damage * 0.2;
@@ -37,7 +39,7 @@ public class Mage2 extends Skill
         U.waitSeconds(Const.INTERVEL / 2);
         U.dayin(caster.name + "使用了<" + this.name + ">,造成了"
                 + (int) (Main.damage + 0.5) + "点伤害!对方感到一阵寒意");
-        Mage.coldCount(3, caster, target);
+        m.coldCount(3, caster, target);
         return 0;
     }
 }

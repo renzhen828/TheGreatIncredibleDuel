@@ -4,18 +4,17 @@ import duel.Buff;
 import duel.Hero;
 import duel.Main;
 import duel.Skill;
-import duel.U;
 
-public class Cold extends Buff
+public class Fssz extends Buff
 {
-    public boolean cold = false;
+    private int a = -1;
 
-    public Cold(Hero caster, Hero target)
+    public Fssz(Hero caster, Hero target)
     {
-        this.name = "冻结";
-        this.type = "Cold";
+        this.name = "法术反制";
+        this.type = "fssz";
         this.Quality = 2;
-        this.roundNum = 3;
+        this.roundNum = 4;
         this.caster = caster;
         this.target = target;
     }
@@ -23,22 +22,17 @@ public class Cold extends Buff
     @Override
     public void buffOn()
     {
+        if ((3 == roundNum) && (Main.roundNum >= 2))
+            if (null != Main.roundList.get(Main.roundNum - 2).csk)
+                a = Main.roundList.get(Main.roundNum - 2).csk.skillType;
         if (target.equals(Main.attacker))
         {
             for (Skill skill : target.skillList)
-                skill.cast = false;
+                if (skill.skillType == a)
+                    skill.cast = false;
             for (Skill skill : target.ultList)
-                skill.cast = false;
-        }
-    }
-
-    public void buffOn2()
-    {
-        if ((target.equals(Main.target)) && (Main.damage > 0)
-                && (false == Main.ignDamDec) && (cold))
-        {
-            Main.damage = 0;
-            U.dayin(target.name + "的  *" + this.name + "  生效,伤害被免疫");
+                if (skill.skillType == a)
+                    skill.cast = false;
         }
     }
 
@@ -63,13 +57,7 @@ public class Cold extends Buff
     @Override
     public void roundEndDo()
     {
-        buffOn2();
         if (this.roundNum > 0)
             this.roundNum--;
-        if (0 == this.roundNum)
-            cold = false;
-        if (1 == this.roundNum)
-            cold = true;
     }
-
 }

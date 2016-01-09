@@ -17,6 +17,7 @@ public class Mage3 extends Skill
         this.name = "°ÂÊõ³å»÷";
         this.caster = caster;
         this.target = target;
+        this.skillType = 0;
     }
 
     @Override

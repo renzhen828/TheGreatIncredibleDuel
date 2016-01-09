@@ -16,6 +16,7 @@ public class War8 extends Skill
         this.name = "盾牌反射";
         this.caster = caster;
         this.target = target;
+        this.skillType = 2;
     }
 
     @Override
@@ -27,7 +28,7 @@ public class War8 extends Skill
         caster.ultList.get(2).ultNum = caster.ultList.get(2).ultNum + 12;
 
         U.waitSeconds(Const.INTERVEL / 2);
-        U.dayin(caster.name + "使用了<" + this.name + ">,获得此特效");
+        U.dayin(caster.name + "使用了<" + this.name + ">,将盾牌举起朝向对方");
         return 0;
     }
 

@@ -35,4 +35,17 @@ public class Warrior extends Hero
         this.ultList.add(new WarW(this, target));
         this.ultList.add(new WarE(this, target));
     }
+
+    @Override
+    public String discribe()
+    {
+        return ("");
+    }
+
+    @Override
+    public void MageQ()
+    {
+
+    }
+
 }

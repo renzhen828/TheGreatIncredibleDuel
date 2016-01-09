@@ -4,7 +4,6 @@ import duel.Buff;
 import duel.Critical;
 import duel.Hero;
 import duel.Main;
-import duel.U;
 
 public class Sfzz extends Buff implements Critical
 {
@@ -15,7 +14,7 @@ public class Sfzz extends Buff implements Critical
         this.name = "施法专注";
         this.type = "sfzz";
         this.Quality = 1;
-        this.roundNum = 4;
+        this.roundNum = 5;
         this.caster = caster;
         this.target = target;
     }
@@ -23,11 +22,8 @@ public class Sfzz extends Buff implements Critical
     @Override
     public void buffOn()
     {
-        if ((caster.equals(Main.target)) && (Main.damage > 0))
-        {
-            Main.damage = 0;
-            U.dayin("然而" + target.name + "只是被冻在原地，未造成任何伤害");
-        }
+        if (caster.equals(Main.attacker))
+            Main.ignDamDec = true;
     }
 
     @Override
@@ -39,13 +35,13 @@ public class Sfzz extends Buff implements Critical
     @Override
     public void roundStartDo()
     {
-
+        buffOn();
     }
 
     @Override
     public void roundExecuteDo()
     {
-        buffOn();
+
     }
 
     @Override
@@ -60,12 +56,12 @@ public class Sfzz extends Buff implements Critical
     @Override
     public double buffCrit(double d, Hero caster)
     {
-        if ((caster.equals(Main.attacker)) && (this.roundNum > 0))
+        if (caster.equals(Main.attacker))
             if (1 == d)
                 d = 1.4;
             else
                 d = 1.8;
         return d;
     }
-    
+
 }

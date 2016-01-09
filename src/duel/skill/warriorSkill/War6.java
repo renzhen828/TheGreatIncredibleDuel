@@ -18,6 +18,7 @@ public class War6 extends Skill
         this.name = "狂暴之怒";
         this.caster = caster;
         this.target = target;
+        this.skillType = 2;
     }
 
     @Override
@@ -51,18 +52,6 @@ public class War6 extends Skill
         int finalGj = (int) (caster.gj * 1.1);
         int incGj = finalGj - caster.gj;
         caster.gj = finalGj;
-        if (1 == Main.half)
-        {
-            if (caster.fy < Main.fy1)
-            {
-                caster.fy = Main.fy1;
-                debuff = debuff + "  降低攻击";
-            }
-        } else if (caster.fy < Main.fy2)
-        {
-            caster.fy = Main.fy2;
-            debuff = debuff + "  降低攻击";
-        }
 
         U.deleteBuffByType(caster, buffType);
         caster.buffList.add(new Immune(caster, target));
@@ -87,8 +76,8 @@ public class War6 extends Skill
         U.incCaster(caster, 50);
 
         U.waitSeconds(Const.INTERVEL / 2);
-        U.dayin(caster.name + "使用了<" + this.name + ">,增加攻击" + incGj + "点,解除自身特效"
-                + debuff + ",并获得  *免疫");
+        U.dayin(caster.name + "使用了<" + this.name + ">,增加攻击" + incGj
+                + "点,解除自身特效" + debuff + ",并获得  *免疫");
         return 0;
     }
 }

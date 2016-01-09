@@ -17,6 +17,7 @@ public class WarQ extends Skill
         this.name = "½£ÈÐ·ç±©";
         this.caster = caster;
         this.target = target;
+        this.skillType = 0;
     }
 
     @Override

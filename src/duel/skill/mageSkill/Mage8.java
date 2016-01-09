@@ -1,4 +1,4 @@
-package duel.skill.warriorSkill;
+package duel.skill.mageSkill;
 
 import duel.Buff;
 import duel.Const;
@@ -6,22 +6,27 @@ import duel.Hero;
 import duel.Main;
 import duel.Skill;
 import duel.U;
+import duel.buff.Fssz;
 
-public class War7 extends Skill
+public class Mage8 extends Skill
 {
+    String buffType = "fssz";
 
-    public War7(Hero caster, Hero target)
+    public Mage8(Hero caster, Hero target)
     {
-        this.mark = "7";
-        this.name = "破胆怒吼";
+        this.mark = "8";
+        this.name = "法术反制";
         this.caster = caster;
         this.target = target;
-        this.skillType = 2;
+        this.skillType = 0;
     }
 
     @Override
     public int perform()
     {
+        U.deleteBuffByType(target, buffType);
+        target.buffList.add(new Fssz(caster, target));
+
         String strBuff = "";
         if (1 == Main.half)
         {
@@ -63,16 +68,10 @@ public class War7 extends Skill
         if (strBuff.equals(""))
             strBuff = "无";
 
-        caster.ultList.get(2).ultNum = caster.ultList.get(2).ultNum + 12;
-        if (target.ql > 50)
-            target.ql = target.ql - 50;
-        else
-            target.ql = 0;
-        caster.ql = caster.ql + 20;
+        caster.ultList.get(0).ultNum = caster.ultList.get(0).ultNum + 15;
 
         U.waitSeconds(Const.INTERVEL / 2);
-        U.dayin(caster.name + "使用了<" + this.name + ">,震慑住了对方！驱散对方特效" + strBuff);
+        U.dayin(caster.name + "使用了<" + this.name + ">,限制对方施法,驱散对方特效" + strBuff);
         return 0;
     }
-
 }

@@ -27,35 +27,39 @@ public class Burn extends Buff
         {
             double burnDam = 0;
             int burnNum = 0;
-            for (Integer burn : Mage.burnList)
+            int index = -1;
+            Mage m = (Mage) caster;
+            for (Integer burn : m.burnList)
             {
                 burnDam = burnDam + xishu * 100 * (caster.gj + 15)
                         / (target.fy + 15);
-                burn--;
-                if (burn > 0)
+
+                index = m.burnList.indexOf(burn);
+                m.burnList.set(index, burn - 1);
+                if (burn > 1)
                     burnNum++;// 计算灼烧伤害与剩余层数
             }
 
-            int index = -1;
             do
             {
                 index = -1;
-                for (Integer burn : Mage.burnList)
+                for (Integer burn : m.burnList)
                     if (0 == burn)
-                        index = Mage.burnList.indexOf(burn);
+                        index = m.burnList.indexOf(burn);
                 if (index > -1)
-                    Mage.burnList.remove(index);
+                    m.burnList.remove(index);
             } while (index > -1);// 清除灼烧层数
 
             this.name = "灼烧";
             if (burnNum > 0)
-                this.name = this.name + burnNum;
-            if (Mage.burnNum > 0)
-                this.name = this.name + "." + (int) (Mage.burnNum * 10);// 显示灼烧buff剩余层数
+                this.name = this.name + burnNum;// 显示灼烧层数
 
-            if (Mage.burnDouble)
+            if (0 == burnNum)
+                roundNum = 0;// 清除灼烧buff
+
+            if (m.burnDouble)
                 burnDam = burnDam * 2;// 燃烧技能两倍灼烧伤害
-            Mage.burnDouble = false;
+            m.burnDouble = false;
 
             caster.ultList.get(1).ultNum = caster.ultList.get(1).ultNum
                     + burnDam * 0.2;
@@ -63,7 +67,7 @@ public class Burn extends Buff
             Main.damage = Main.damage + burnDam;
 
             if (burnDam > 0)
-                U.dayin("*灼烧  伤害" + burnDam + "点");
+                U.dayin("*灼烧  伤害" + (int) (burnDam + 0.5) + "点");
         }
     }
 

@@ -12,13 +12,14 @@ public class WarW extends Skill
 {
     private double xishu = 0.4;
     String buffType = "Stun";
-    
+
     public WarW(Hero caster, Hero target)
     {
         this.mark = "W";
         this.name = "Õðµ´²¨";
         this.caster = caster;
         this.target = target;
+        this.skillType = 1;
     }
 
     @Override

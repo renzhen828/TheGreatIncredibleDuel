@@ -18,6 +18,7 @@ public class Mage1 extends Skill
         this.name = "»ğÇòÊõ";
         this.caster = caster;
         this.target = target;
+        this.skillType = 1;
     }
 
     @Override
@@ -28,7 +29,8 @@ public class Mage1 extends Skill
         int ran = RandomIntList.getInstance().getNext() / 1000;
         Main.damage = xishu * (95 + ran) * (caster.gj + 15) / (target.fy + 15)
                 * d;
-        Mage.burnCount(1.4, caster, target);
+        Mage m = (Mage) caster;
+        m.burnCount(1.4, caster, target);
 
         caster.ultList.get(1).ultNum = caster.ultList.get(1).ultNum
                 + Main.damage / 12;

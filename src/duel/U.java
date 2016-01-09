@@ -54,15 +54,15 @@ public class U
     public static void showXl(Hero p)
     {
         waitSeconds(Const.INTERVEL / 2);
-        String strBuff = "";
+        String strHero, strBuff = "";
+        strHero = p.discribe();
         for (Buff buff : p.buffList)
         {
             if (buff.roundNum > 0)
                 strBuff = strBuff + "  *" + buff.name;
-            buff.roundStartDo();
         }
         U.dayin(p.name + "\tÉúÃü:" + p.xl + "\tÄÜÁ¿:" + p.ql + "\t¹¥»÷:" + p.gj
-                + "\t·ÀÓù:" + p.fy + "  " + strBuff);
+                + "\t·ÀÓù:" + p.fy + "  " + strHero + strBuff);
     }
 
     public static void waitSeconds(double s)
@@ -147,8 +147,14 @@ public class U
             d = 1.4;
         else if (crit <= 35)
             d = 0.7;
-        for (Critical c : Main.critList)
-            d = c.buffCrit(d, caster);
+        for (Buff buff : caster.buffList)
+        {
+            if (buff instanceof Critical)
+            {
+                Critical c = (Critical) buff;
+                d = c.buffCrit(d, caster);
+            }
+        }
         return d;
     }
 
